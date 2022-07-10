@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="">
+      <p th:text="'Hello Everybody! The current datas user is '+${dto.username}"></p>
+      <div sec:authorize="isAuthenticated()">
+         Authenticated as <span sec:authentication="name"></span>
+      </div>
+      <table>
+         <thead>
+            <tr>
+               <th>Buddies</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr th:each="buddy: ${dto.friendList}">
+               <td th:text="${buddy}">Buddy:</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</body>
+</html>
