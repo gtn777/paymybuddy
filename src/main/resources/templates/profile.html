@@ -11,23 +11,20 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+   <nav>
+      <a href="/home">home</a> <a href="/transfert">transfert</a><a href="/profile">profile</a>
+   </nav>
    <div class="">
-      <p th:text="'Hello Everybody! The current datas user is '+${dto.username}"></p>
+      <p th:text="'Hello '+${dto.username} + ' !'"></p>
+      <p th:text="'Your account balance: '+${dto.balance}">
+      <p>
       <div sec:authorize="isAuthenticated()">
          Authenticated as <span sec:authentication="name"></span>
       </div>
-      <table>
-         <thead>
-            <tr>
-               <th>Buddies</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr th:each="buddy: ${dto.friendList}">
-               <td th:text="${buddy}">Buddy:</td>
-            </tr>
-         </tbody>
-      </table>
+      <div>
+      <p>Add money from your bank account:</p>
+      <button  ></button>
+      </div>
    </div>
 </body>
 </html>

@@ -74,7 +74,7 @@ public class UserService {
 
     public void sendMoneyToBank(String username, float transfertAmount) {}
 
-    public void receiverMoneyFromBank(String username, float transfertAmount) {}
+    public void receiveMoneyFromBank(String username, float transfertAmount) {}
 
     public Iterable<UserDto> getAllUser() {
 	Set<UserDto> result = new HashSet<UserDto>();

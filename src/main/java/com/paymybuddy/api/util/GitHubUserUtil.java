@@ -19,9 +19,9 @@ import com.paymybuddy.api.dto.GitHubUserEmailDto;
 
 
 @Service
-public class GitHubApiUtil {
+public class GitHubUserUtil {
 
-    public String getGitUserEmail(OAuth2AuthorizedClient client) {
+    public String getGitHubUserBaseAndVerifiedEmail(OAuth2AuthorizedClient client) {
 	String getEmailUrl = "https://api.github.com/user/emails";
 	// send HTTP request to get user emails and get the primary email
 	RestTemplate restTemplate = new RestTemplate();

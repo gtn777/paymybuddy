@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,35 +7,74 @@
 <title>Transfert Page</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-	<div class="main">
-		<nav>
-			<ol>
-				<li><a href="">home</a></li>
-				<li><a href="">transfert</a></li>
-				<li><a href="">profil</a></li>
-				<li><a href="">contact</a></li>
-				<li><a href="">log off</a></li>
-			</ol>
-		</nav>
-		<div class="send-money">
-			<h4>Send Money</h4>
-			<button class="add-connection-button">add connection</button>
-		</div>
-		<form class="send-money-form">
-			<select name="buddy-select" id="buddy-selector">
-				<option value="">--Please choose a buddy--</option>
-				<option value="bob">bob</option>
-				<option value="mike">mike</option>
-				<option value="julie">julie</option>
-				<option value="franck">franck</option>
-			</select> <input type="number" name="amount" id="amount-select"> <input
-				type="submit" value="pay your buddy">
-		</form>
-		<div class="buddy-list" >
-		</div>
-	</div>
+   <div class="main">
+      <nav>
+         <a href="/home">home</a>
+         <a href="/transfert">transfert</a>
+         <a href="/profile">profile</a>
+      </nav>
+   </div>
+   <div>
+      <h1>Add a new connection with a buddy:</h1>
+      <form th:action="@{/transfert/addbuddy}" method="post">
+         <p>
+            Enter the email of your buddy:
+            <input type="text" th:value="buddy" name="buddy" />
+            <input type="submit" />
+         </p>
+      </form>
+   </div>
+   <div>
+      <table class="buddy-table">
+         <thead>
+            <tr>
+               <th>My Buddies</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr th:each="buddy: ${dto.friendList}">
+               <td th:text="${buddy}">Buddy:</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <div>
+      <table>
+         <caption>Noms et valeurs des couleurs</caption>
+         <tbody>
+            <tr>
+               <th scope="col">Nom</th>
+               <th scope="col">Hexadécimal</th>
+               <th scope="col">HSLa</th>
+               <th scope="col">RGBa</th>
+            </tr>
+            <tr>
+               <th scope="row">Turquoise</th>
+               <td>
+                  <code>#51F6F6</code>
+               </td>
+               <td>
+                  <code>hsla(180, 90%, 64%, 1)</code>
+               </td>
+               <td>
+                  <code>rgba(81, 246, 246, 1)</code>
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">Ocre</th>
+               <td>
+                  <code>#F6BC57</code>
+               </td>
+               <td>
+                  <code>hsla(38, 90%, 65%, 1)</code>
+               </td>
+               <td>
+                  <code>rgba(246, 188, 87, 1)</code>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
 </body>
-
 </html>
