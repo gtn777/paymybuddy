@@ -7,13 +7,13 @@ import lombok.Data;
 
 
 @Data
-public class LoginIdDto implements Serializable {
+public class LoginDto implements Serializable {
 
     private static final long serialVersionUID = -3420817727541693869L;
 
-    public LoginIdDto() { super(); }
+    public LoginDto() { super(); }
 
-    public LoginIdDto(String u, String p) {
+    public LoginDto(String u, String p) {
 	super();
 	this.username = u;
 	this.password = p;

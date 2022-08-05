@@ -22,8 +22,15 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1>Something went wrong! </h1>
-<h2>Our Engineers are on it</h2>
-<a href="/">Go Home</a>
+   <nav>
+      <a href="/home">home</a>
+      <a href="/transfert">transfert</a>
+      <a href="/profile">profile</a>
+      <a sec:authorize="isAnonymous()" href="/login">login</a>
+      <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
+   </nav>
+   <h1>Something went wrong!</h1>
+   <h2>Our Engineers are on it</h2>
+   <a href="/">Go Home</a>
 </body>
 </html>

@@ -7,25 +7,31 @@ import com.paymybuddy.api.entity.BuddyPayment;
 
 import lombok.Data;
 
-
 @Data
 public class BuddyPaymentDto implements Serializable {
 
-    private static final long serialVersionUID = -8451958447382834717L;
+	private static final long serialVersionUID = -8451958447382834717L;
 
-    public BuddyPaymentDto() { super(); }
+	public BuddyPaymentDto() {
+		super();
+	}
 
-    public BuddyPaymentDto(BuddyPayment bp) {
-	super();
-	this.sender = bp.getSenderUser().getUsername();
-	this.receiver = bp.getRecipientUser().getUsername();
-	this.amount = bp.getAmount();
-    }
+	public BuddyPaymentDto(BuddyPayment bp) {
+		this.senderUsername = bp.getSenderUser().getUsername();
+		this.receiverUsername = bp.getReceiverUser().getUsername();
+		this.amount = bp.getAmount();
+	}
 
-    private String sender;
+	public BuddyPaymentDto(String authenticatedUsername, String buddy, Float amount) {
+		this.senderUsername = authenticatedUsername;
+		this.receiverUsername = buddy;
+		this.amount = amount;
+	}
 
-    private String receiver;
+	private String senderUsername;
 
-    private float amount;
+	private String receiverUsername;
+
+	private float amount;
 
 }

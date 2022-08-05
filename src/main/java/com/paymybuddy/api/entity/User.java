@@ -80,7 +80,7 @@ public class User {
 
     @JsonBackReference
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "recipientUser",
+    @OneToMany(mappedBy = "receiverUser",
 	       cascade = { CascadeType.MERGE, CascadeType.PERSIST },
 	       fetch = FetchType.EAGER)
     private Set<BuddyPayment> sentBuddyPayments = new HashSet<BuddyPayment>();

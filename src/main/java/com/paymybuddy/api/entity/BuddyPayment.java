@@ -18,35 +18,43 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-
 @Data
 @Entity
 @Table(name = "buddy_payment")
 public class BuddyPayment {
 
-    public BuddyPayment() { super(); }
+	public BuddyPayment() {
+		super();
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "buddy_payment_id", nullable = false, unique = true)
-    private int id;
+	public BuddyPayment(User sender, User receiver, float amount) {
+		this.senderUser = sender;
+		this.receiverUser = receiver;
+		this.amount = amount;
+		this.paymentDate = LocalDate.now();
+	}
 
-    @EqualsAndHashCode.Exclude
-    @ManyToOne(targetEntity = User.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "sender_user_id")
-    @JsonManagedReference
-    private User senderUser;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "buddy_payment_id", nullable = false, unique = true)
+	private int id;
 
-    @EqualsAndHashCode.Exclude
-    @ManyToOne(targetEntity = User.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "recipient_user_id")
-    @JsonManagedReference
-    private User recipientUser;
+	@EqualsAndHashCode.Exclude
+	@ManyToOne(targetEntity = User.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@JoinColumn(name = "sender_user_id")
+	@JsonManagedReference
+	private User senderUser;
 
-    @Column(name = "amount", unique = false, nullable = false)
-    private float amount;
+	@EqualsAndHashCode.Exclude
+	@ManyToOne(targetEntity = User.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@JoinColumn(name = "recipient_user_id")
+	@JsonManagedReference
+	private User receiverUser;
 
-    @Column(name = "payment_date", unique = false, nullable = false)
-    private LocalDate paymentDate;
+	@Column(name = "amount", unique = false, nullable = false)
+	private float amount;
+
+	@Column(name = "payment_date", unique = false, nullable = false)
+	private LocalDate paymentDate;
 
 }

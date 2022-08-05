@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,16 +14,30 @@
          <a href="/home">home</a>
          <a href="/transfert">transfert</a>
          <a href="/profile">profile</a>
+         <a sec:authorize="isAnonymous()" href="/login">login</a>
+         <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
       </nav>
    </div>
    <div>
       <h1>Add a new connection with a buddy:</h1>
-      <form th:action="@{/transfert/addbuddy}" method="post">
+      <form action="#" th:action="@{/transfert/connection}" method="post">
          <p>
             Enter the email of your buddy:
             <input type="text" th:value="buddy" name="buddy" />
             <input type="submit" />
          </p>
+      </form>
+   </div>
+   <div class="payment">
+      <h1>Pay a buddy:</h1>
+      <form action="#" th:action="@{/transfert/payment}" method="post">
+         <select name="buddy">
+            <option value="select a buddy"></option>
+            <option th:each="b : ${userDto.friendList}" th:value="${b}" th:text="${b}"></option>
+         </select>
+         <p>Amount:</p>
+         <input type="number" th:value="amount" name="amount" />
+         <input type="submit" />
       </form>
    </div>
    <div>
@@ -33,48 +48,13 @@
             </tr>
          </thead>
          <tbody>
-            <tr th:each="buddy: ${dto.friendList}">
-               <td th:text="${buddy}">Buddy:</td>
+            <tr th:each="buddy: ${userDto.friendList}">
+               <td th:text="${buddy}"></td>
             </tr>
          </tbody>
       </table>
    </div>
-   <div>
-      <table>
-         <caption>Noms et valeurs des couleurs</caption>
-         <tbody>
-            <tr>
-               <th scope="col">Nom</th>
-               <th scope="col">Hexadécimal</th>
-               <th scope="col">HSLa</th>
-               <th scope="col">RGBa</th>
-            </tr>
-            <tr>
-               <th scope="row">Turquoise</th>
-               <td>
-                  <code>#51F6F6</code>
-               </td>
-               <td>
-                  <code>hsla(180, 90%, 64%, 1)</code>
-               </td>
-               <td>
-                  <code>rgba(81, 246, 246, 1)</code>
-               </td>
-            </tr>
-            <tr>
-               <th scope="row">Ocre</th>
-               <td>
-                  <code>#F6BC57</code>
-               </td>
-               <td>
-                  <code>hsla(38, 90%, 65%, 1)</code>
-               </td>
-               <td>
-                  <code>rgba(246, 188, 87, 1)</code>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </div>
+   <!-- 
+  -->
 </body>
 </html>

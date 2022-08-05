@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paymybuddy.api.controller.UserController;
-import com.paymybuddy.api.dto.LoginIdDto;
+import com.paymybuddy.api.dto.LoginDto;
 import com.paymybuddy.api.dto.UserDto;
 import com.paymybuddy.api.entity.User;
 import com.paymybuddy.api.exception.UnknownUserException;
@@ -55,7 +55,7 @@ public class UserControllerTest {
 
     private User user;
 
-    private LoginIdDto loginIdDto;
+    private LoginDto loginIdDto;
 
     private UserDto userDto;
 
@@ -66,7 +66,7 @@ public class UserControllerTest {
 	user.setPassword(password);
 	user.setEnabled(true);
 	user.setRole("USER");
-	loginIdDto = new LoginIdDto();
+	loginIdDto = new LoginDto();
 	loginIdDto.setUsername(username);
 	loginIdDto.setPassword(password);
 	userDto = new UserDto(user);

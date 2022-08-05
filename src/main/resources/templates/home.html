@@ -1,13 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pay My Buddy - Home</title>
 </head>
 <body>
-   <div>
+   <nav>
+      <a href="/home">home</a>
+      <a href="/transfert">transfert</a>
+      <a href="/profile">profile</a>
+      <a sec:authorize="isAnonymous()" href="/login">login</a>
+      <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
+   </nav>
+   <div sec:authorize="isAnonymous()">
+      <h2>Pay My Buddy, simple solution to send money to your buddies.</h2>
+      <div class="login">
+         login
+         <a href="/login">connexion</a>
+      </div>
+      <div class="create-account">
+         create
+         <a href="/createAccount">create account</a>
+      </div>
+   </div>
+   <div sec:authorize="isAuthenticated()">
       <p>
-         Logged user: <span sec:authentication="name">Bob</span>
+         Welcome 
+         <span sec:authentication="name">Bob</span>
+         !
       </p>
    </div>
 </body>

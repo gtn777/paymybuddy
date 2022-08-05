@@ -1,10 +1,12 @@
 
-package com.paymybuddy.api.service;
+package com.paymybuddy.api.util;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.paymybuddy.api.service.UserService;
 
 
 @Service
