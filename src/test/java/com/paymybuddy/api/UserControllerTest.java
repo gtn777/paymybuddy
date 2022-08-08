@@ -101,7 +101,7 @@ public class UserControllerTest {
     @WithMockUser(username)
     @Test
     public void postNewUser_httpStatusIsCreated_thenReturnUserDto() throws Exception {
-	when(userService.createUser(loginIdDto)).thenReturn(userDto);
+	when(userService.createPasswordAccount(loginIdDto)).thenReturn(userDto);
 	mockMvc
 	.perform(post("/user").contentType(MediaType.APPLICATION_JSON)
 	.content(new ObjectMapper().writeValueAsString(loginIdDto)))

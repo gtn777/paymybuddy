@@ -1,26 +1,12 @@
-<!-- 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Error page</title>
-<meta charset="utf-8" />
-<link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}" />
 </head>
-<body
-   th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
-   <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
-   <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
-   <a href="index.html" th:href="@{/index.html}">Back to Home Page</a>
-   <h1>Something went wrong!</h1>
-   <h2>Our Engineers are on it</h2>
-   <a href="/">Go Home</a>
-</body>
-</html>
-</body>
-</html>
--->
-<!DOCTYPE html>
-<html>
 <body>
    <nav>
       <a href="/home">home</a>

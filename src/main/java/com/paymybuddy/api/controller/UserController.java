@@ -1,20 +1,20 @@
 
 package com.paymybuddy.api.controller;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.paymybuddy.api.dto.BuddyPaymentDto;
 import com.paymybuddy.api.dto.LoginDto;
@@ -23,12 +23,10 @@ import com.paymybuddy.api.service.BuddyPaymentService;
 import com.paymybuddy.api.service.UserService;
 import com.paymybuddy.api.util.GitHubUserUtil;
 
-@RestController
+@Controller
 public class UserController {
 
 	private final OAuth2AuthorizedClientService authorizedClientService;
-
-	private Principal principal = null;
 
 	public UserController(OAuth2AuthorizedClientService authorizedClientService) {
 		this.authorizedClientService = authorizedClientService;
@@ -43,20 +41,30 @@ public class UserController {
 	@Autowired
 	private GitHubUserUtil gitHubUserUtil;
 
-	@GetMapping(value = "/")
-	public Object getIndexDefaultPage(Authentication auth) throws Throwable {
-		return this.getHomePage(auth);
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public Object getIndexDefaultPage(RedirectAttributes r) throws Throwable {
+
+		return "redirect:/home";
 	}
 
 	@GetMapping(value = "/home")
 	public Object getHomePage(Authentication auth) throws Throwable {
-		ModelAndView mav = new ModelAndView("home");
 		if (auth != null) {
-			UserDto dto = userService.getUserDtoByUsername(getAuthenticatedUsername(auth));
-			mav.addObject("dto", dto);
+			if (userService.isKnownUser(getAuthenticatedUsername(auth))) {
+				ModelAndView mav = new ModelAndView("home");
+				UserDto dto = userService.getUserDtoByUsername(getAuthenticatedUsername(auth));
+				mav.addObject("dto", dto);
+				mav.setStatus(HttpStatus.OK);
+				return mav;
+			} else {
+				userService.createSocialNetworkUserAccount(getAuthenticatedUsername(auth));
+				return "redirect:/home";
+			}
+		} else {
+			ModelAndView mav = new ModelAndView("home");
+			mav.setStatus(HttpStatus.OK);
+			return mav;
 		}
-		mav.setStatus(HttpStatus.OK);
-		return mav;
 	}
 
 	@GetMapping(value = "/createAccount")
@@ -66,28 +74,13 @@ public class UserController {
 		return mav;
 	}
 
-	@PostMapping(path = "/user")
-	public Object createUserAccount(@ModelAttribute(value = "logindto") LoginDto dto) throws Throwable {
-		if (dto.getUsername() == null || dto.getUsername().length() < 4) {
-			return ResponseEntity
-					.status(HttpStatus.BAD_REQUEST)
-					.body("Entered value for email is incorrect.");
-		} else if (dto.getPassword().length() < 4 || dto.getPassword() == null) {
-			return ResponseEntity
-					.status(HttpStatus.BAD_REQUEST)
-					.body("Entered value for password is incorrect.");
-		} else {
-			UserDto result = userService.createUser(dto);
-			if (result instanceof UserDto && result.getUsername() == dto.getUsername()) {
-				ModelAndView mav = new ModelAndView("newUser");
-				mav.setStatus(HttpStatus.CREATED);
-				return mav;
-			} else {
-				ModelAndView mav = new ModelAndView("createAccount");
-				mav.setStatus(HttpStatus.BAD_REQUEST);
-				return mav;
-			}
-		}
+	@PostMapping(path = "/createAccount")
+	public Object createUserPasswordAccount(@ModelAttribute(value = "logindto") LoginDto dto)
+			throws Throwable {
+		userService.createPasswordAccount(dto);
+		ModelAndView mav = new ModelAndView("newUser");
+		mav.setStatus(HttpStatus.CREATED);
+		return mav;
 	}
 
 	@GetMapping(value = "/profile")
@@ -99,6 +92,42 @@ public class UserController {
 		return mav;
 	}
 
+	@GetMapping(value = "/profile/addBankAccount")
+	public Object getAddBankAccountPage(Authentication auth) throws Throwable {
+		ModelAndView mav = new ModelAndView("addBankAccount");
+		UserDto dto = userService.getUserDtoByUsername(getAuthenticatedUsername(auth));
+		mav.addObject("dto", dto);
+		mav.setStatus(HttpStatus.OK);
+		return mav;
+	}
+
+	@PostMapping(value = "/profile/addBankAccount")
+	public Object addBankAccount(Authentication auth, @ModelAttribute(value = "bankName") String bankName,
+			@ModelAttribute(value = "accountNumber") Long accountNumber) throws Throwable {
+		userService.addBankAccount(getAuthenticatedUsername(auth), bankName, accountNumber);
+		return "redirect:/profile";
+	}
+
+	@PostMapping(value = "/profile/deleteBankAccount")
+	public Object deleteBankAccount(Authentication auth) throws Throwable {
+		userService.deleteBankAccount(getAuthenticatedUsername(auth));
+		return "redirect:/profile";
+	}
+
+	@PostMapping(value = "/profile/fromBank")
+	public Object receiveMoneyFromBank(Authentication auth, @ModelAttribute(value = "amount") int amount)
+			throws Throwable {
+		userService.receiveMoneyFromBank(getAuthenticatedUsername(auth), amount);
+		return "redirect:/profile";
+	}
+
+	@PostMapping(value = "/profile/toBank")
+	public Object sendMoneyToBank(Authentication auth, @ModelAttribute(value = "amount") int amount)
+			throws Throwable {
+		userService.sendMoneyToBank(getAuthenticatedUsername(auth), amount);
+		return "redirect:/profile";
+	}
+
 	@GetMapping(value = "/transfert")
 	public Object getTransfertPage(Authentication auth) throws Throwable {
 		ModelAndView mav = new ModelAndView("transfert");
@@ -108,15 +137,20 @@ public class UserController {
 		return mav;
 	}
 
-	@PostMapping(value = "/transfert/connection")
-	public Object addNewBuddy(Authentication auth, @ModelAttribute(value = "buddy") String buddy)
-			throws Throwable {
-		userService.addNewBuddy(getAuthenticatedUsername(auth), buddy);
-		ModelAndView mav = new ModelAndView("transfert");
+	@GetMapping(value = "/addConnection")
+	public Object getAddConnectionPage(Authentication auth) {
+		ModelAndView mav = new ModelAndView("addConnection");
 		UserDto userDto = userService.getUserDtoByUsername(getAuthenticatedUsername(auth));
 		mav.addObject("userDto", userDto);
 		mav.setStatus(HttpStatus.OK);
 		return mav;
+	}
+
+	@PostMapping(value = "/addConnection")
+	public Object addConnection(Authentication auth, @ModelAttribute(value = "newBuddy") String newBuddy)
+			throws Throwable {
+		userService.addNewBuddy(getAuthenticatedUsername(auth), newBuddy);
+		return "redirect:/addConnection";
 	}
 
 	@PostMapping(value = "/transfert/payment")
@@ -126,11 +160,7 @@ public class UserController {
 				buddy,
 				amount);
 		buddyPaymentService.createABuddyPayment(buddyPaymentDto);
-		ModelAndView mav = new ModelAndView("transfert");
-		UserDto userDto = userService.getUserDtoByUsername(getAuthenticatedUsername(auth));
-		mav.addObject("userDto", userDto);
-		mav.setStatus(HttpStatus.OK);
-		return mav;
+		return "redirect:/transfert";
 	}
 
 	/*

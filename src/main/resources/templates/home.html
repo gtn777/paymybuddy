@@ -25,11 +25,19 @@
          create
          <a href="/createAccount">create account</a>
       </div>
+      <div>
+         <p>Connect or create an account with google:
+            <a href="/oauth2/authorization/google">
+               <img alt="Google button to connect" width="25px" th:src="@{images/googlelogo.jpeg}"
+                  src="../../static/images/googlelogo.jpeg}">
+            </a>
+         </p>         
+      </div>
    </div>
    <div sec:authorize="isAuthenticated()">
       <p>
          Welcome 
-         <span sec:authentication="name">Bob</span>
+         <span th:text="${dto.username}" ></span>
          !
       </p>
    </div>

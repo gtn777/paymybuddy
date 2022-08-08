@@ -5,7 +5,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pay My Buddy - Create account.</title>
+<title>Profile</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
    <nav>
@@ -15,22 +16,16 @@
       <a sec:authorize="isAnonymous()" href="/login">login</a>
       <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
    </nav>
-   <h2>Pay My Buddy,simple solution to send money to your buddies.</h2>
-   <div class="create-account">
-      <form action="#" th:action="@{/createAccount}" th:object="${logindto}" method="post">
-         <p>
-            Enter your email:
-            <input type="text" th:field="*{username}" />
-         </p>
-         <p>
-            Enter password::
-            <input type="text" th:field="*{password}" />
-         </p>
-         <p>
-            <input type="submit" value="Submit" />
-            <input type="reset" value="Reset" />
-         </p>
+   <div>
+      <h3>Registry your bank account:</h3>
+      <form action="#" th:action="@{/profile/addBankAccount}" method="post">
+         <label for="bankName">Enter your bank name here:</label>
+         <input type="text" th:value="bankName" name="bankName" />
+         <label for="accountNumber">Enter your account number:</label>
+         <input type="number" th:value="accountNumber" name="accountNumber" />
+         <input type="submit" />
       </form>
    </div>
+   <a href="/profile">Back to profile page</a>
 </body>
 </html>

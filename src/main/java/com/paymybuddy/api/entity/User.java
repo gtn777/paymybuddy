@@ -43,7 +43,7 @@ public class User {
     @Column(name = "username", nullable = false, unique = true, length = 127)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 127)
+    @Column(name = "password", nullable = true, length = 127)
     private String password;
 
     @Column(name = "balance", nullable = false)

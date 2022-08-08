@@ -20,13 +20,33 @@
       <p th:text="'Hello '+${dto.username} + ' !'"></p>
       <p th:text="'Your account balance: '+${dto.balance}">
       <p>
-      <div sec:authorize="isAuthenticated()">
+         <!-- 
+       <div sec:authorize="isAuthenticated()">
          Authenticated as
          <span sec:authentication="name"></span>
       </div>
-      <div>
+  -->
+      <div th:if="${dto.bankAccountDto} == null">
+         Registry your bank account to send or receive money from your bank here:
+         <a href="/profile/addBankAccount">Click</a>
+      </div>
+      <div th:if="${dto.bankAccountDto } != null">
          <p>Add money from your bank account:</p>
-         <button></button>
+         <form action="#" th:action="@{/profile/fromBank}" method="post">
+            <p>
+               Enter amount to request from your
+               <span th:text="${dto.bankAccountDto.bankName}"></span>
+               account with number
+               <span th:text="${dto.bankAccountDto.accountNumber}"></span>
+               :
+            </p>
+            <input type="number" th:value="amount" name="amount" />
+            <input type="submit" />
+         </form>
+         <form action="#" th:action="@{/profile/deleteBankAccount}" method="post">
+            <p>You can delete your account bank here:</p>
+            <input type="submit" />
+         </form>
       </div>
    </div>
 </body>

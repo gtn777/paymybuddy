@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Connection Page</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="main">
+      <nav>
+         <a href="/home">home</a>
+         <a href="/transfert">Transfert</a>
+         <a href="/profile">profile</a>
+         <a sec:authorize="isAnonymous()" href="/login">login</a>
+         <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
+      </nav>
+   </div>
+   <div>
+      <h1>Add a new connection with a buddy:</h1>
+      <form action="#" th:action="@{/addConnection}" method="post">
+         <p>
+            Enter the email of your buddy:
+            <input type="text" th:value="newBuddy" name="newBuddy" />
+            <input type="submit" />
+         </p>
+      </form>
+   </div>
+   <div>
+      <table class="my-buddies">
+         <thead>
+            <tr>
+               <th>My Buddies:</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr th:each="username: ${userDto.myBuddies}" th:object="${user}">
+               <td th:text="${username}"></td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <!-- 
+  -->
+</body>
+</html>
