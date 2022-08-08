@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <nav>
+      <a href="/home">home</a>
+      <a href="/transfert">transfert</a>
+      <a href="/profile">profile</a>
+      <a sec:authorize="isAnonymous()" href="/login">login</a>
+      <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
+   </nav>
+   <div>
+      <h3>Registry your bank account:</h3>
+      <form action="#" th:action="@{/profile/addBankAccount}" method="post">
+         <label for="bankName">Enter your bank name here:</label>
+         <input type="text" th:value="bankName" name="bankName" />
+         <label for="accountNumber">Enter your account number:</label>
+         <input type="number" th:value="accountNumber" name="accountNumber" />
+         <input type="submit" />
+      </form>
+   </div>
+   <a href="/profile">Back to profile page</a>
+</body>
+</html>

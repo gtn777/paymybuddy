@@ -7,17 +7,17 @@ CREATE TABLE bank_account
 (
    bank_account_id int (11) NOT NULL AUTO_INCREMENT,
    bank_name varchar (45) NOT NULL,
-   iban varchar (64) NOT NULL,
+   account_number BIGINT NOT NULL,
    PRIMARY KEY (`bank_account_id`),
-   CONSTRAINT UNIQUE_iban UNIQUE (iban)
+   CONSTRAINT UNIQUE_account_number UNIQUE (account_number)
 );
 CREATE TABLE user
 (
    user_id int (11) NOT NULL AUTO_INCREMENT,
    username varchar (45) NOT NULL,
-   password varchar (127) NOT NULL,
+   password varchar (255),
    balance float NOT NULL,
-   role varchar (45) NOT NULL,
+   role varchar (45) NOT NULL default 'ROLE_USER',
    enabled boolean NOT NULL default 1,
    bank_account_id int (11),
    PRIMARY KEY (`user_id`),
@@ -81,33 +81,3 @@ CREATE TABLE bank_transfert
    PRIMARY KEY (`bank_transfert_id`),
    FOREIGN KEY (user_id) REFERENCES user (user_id)
 );
-/*CREATE TABLE game
-(
-   party1_id INTEGER,
-   party2_id INTEGER,
-   CONSTRAINT p12_unique UNIQUE
-   (
-      party1_id,
-      party2_id
-   )
-);
-CREATE TRIGGER no_way BEFORE insert ON game BEGIN SELECT
-   RAISE
-
-   (
-      ABORT,
-      'There can be only one.'
-   )
-WHERE EXISTS
-   (
-      SELECT
-         1
-      FROM
-         game
-      WHERE
-         party1_id = new.party2_id
-      AND
-         party2_id = new.party1_id
-   );
-END;
-*/
