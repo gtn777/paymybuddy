@@ -3,6 +3,7 @@ drop TABLE if exists buddy_payment;
 drop TABLE if exists bank_transfert;
 drop TABLE if exists user;
 drop TABLE if exists bank_account;
+drop TABLE if exists bank_transfert;
 CREATE TABLE bank_account
 (
    bank_account_id int (11) NOT NULL AUTO_INCREMENT,
@@ -23,6 +24,17 @@ CREATE TABLE user
    PRIMARY KEY (`user_id`),
    FOREIGN KEY (bank_account_id) REFERENCES bank_account (bank_account_id),
    CONSTRAINT UNIQUE_username UNIQUE (username)
+);
+CREATE TABLE bank_transfert
+(
+   bank_transfert_id int (11) NOT NULL AUTO_INCREMENT,
+   bank_account_id int (11) NOT NULL,
+   user_id int (11) NOT NULL,
+   is_user_sender boolean NOT NULL,
+   amount int (11) NOT NULL,
+   PRIMARY KEY (`bank_transfert_id`),
+   FOREIGN KEY (user_id) REFERENCES user (user_id),
+   FOREIGN KEY (bank_account_id) REFERENCES bank_account (bank_account_id)
 );
 CREATE TABLE friendship
 (
@@ -71,13 +83,4 @@ CREATE TABLE buddy_payment
    (
       sender_user_id <> recipient_user_id
    )
-);
-CREATE TABLE bank_transfert
-(
-   bank_transfert_id int (11) NOT NULL AUTO_INCREMENT,
-   user_id int (11) NOT NULL,
-   amount float (11) NOT NULL,
-   user_is_recipient boolean NOT NULL,
-   PRIMARY KEY (`bank_transfert_id`),
-   FOREIGN KEY (user_id) REFERENCES user (user_id)
 );
