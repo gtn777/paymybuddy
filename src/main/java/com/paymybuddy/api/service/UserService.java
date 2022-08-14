@@ -78,36 +78,7 @@ public class UserService {
 		}
 	}
 
-	public boolean addBankAccount(String username, String bankName, long accountNumber) {
-		User user = this.getUserEntityByUsername(username);
-		BankAccount newBankAccount = new BankAccount(bankName, accountNumber);
-		user.setBankAccount(newBankAccount);
-		return true;
-	}
 
-	public boolean deleteBankAccount(String username) {
-		User user = this.getUserEntityByUsername(username);
-		user.setBankAccount(null);
-		return true;
-	}
-
-	public boolean sendMoneyToBank(String username, float amount) {
-		User user = this.getUserEntityByUsername(username);
-		float currentBalance = user.getBalance();
-		if (currentBalance >= amount) {
-			user.setBalance((user.getBalance()) - amount);
-			return true;
-		} else {
-			throw new NotEnoughMoneyException();
-		}
-	}
-
-	public boolean receiveMoneyFromBank(String username, float amount) {
-		User user = this.getUserEntityByUsername(username);
-		float currentBalance = user.getBalance();
-		user.setBalance(currentBalance + amount);
-		return true;
-	}
 
 	public Iterable<UserDto> getAllUser() {
 		Set<UserDto> result = new HashSet<UserDto>();

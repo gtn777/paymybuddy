@@ -1,28 +1,3 @@
-INSERT INTO bank_account
-(
-   bank_name,
-   account_number
-)
-VALUES
-(
-   'HSBC',
-   '834585416544582'
-),
-
-(
-   'BNP',
-   '994565687564456'
-),
-
-(
-   'Crédit Agricole',
-   '4578458656471463'
-),
-
-(
-   'Société Générale',
-   '9456789114558269'
-);
 INSERT INTO user
 (
    username,

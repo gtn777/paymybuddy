@@ -6,28 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Transfert Page</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-   <div class="main">
+   <header>
+      <a class="home-link" href="/home">PayMyBuddy</a>
       <nav>
-         <a href="/home">home</a>
-         <a href="/transfert">transfert</a>
-         <a href="/profile">profile</a>
-         <a sec:authorize="isAnonymous()" href="/login">login</a>
-         <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
+         <a class="link" href="/home">home</a>
+         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
+         <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
       </nav>
-   </div>
+   </header>
    <a href="/addConnection">Add Connection</a>
    <div class="payment">
       <h1>Pay a buddy:</h1>
-      <form action="#" th:action="@{/transfert/payment}" method="post">
+      <form action="#" th:action="@{/transfer/payment}" method="post">
          <select name="buddy">
             <option value="select a buddy"></option>
             <option th:each="b : ${userDto.myBuddies}" th:value="${b}" th:text="${b}"></option>
          </select>
          <p>Amount:</p>
          <input type="number" th:value="amount" name="amount" />
+         <p>Description:</p>
+         <input type="text" th:value="description" name="description" />
          <input type="submit" />
       </form>
    </div>
@@ -42,6 +45,7 @@
             <tr th:each="payment: ${userDto.allBuddyPaymentDtoList}" th:object="${payment}"
                th:if="${payment.senderUsername} == ${userDto.username}">
                <td th:text="${payment.receiverUsername}"></td>
+               <td th:text="${payment.description}"></td>
                <td th:text="${payment.amount}"></td>
             </tr>
          </tbody>

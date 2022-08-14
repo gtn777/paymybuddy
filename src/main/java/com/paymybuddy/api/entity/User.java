@@ -58,7 +58,7 @@ public class User {
     @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
-    @JoinTable(name = "friendship",
+    @JoinTable(name = "connection",
 	       joinColumns = @JoinColumn(name = "user_id"),
 	       inverseJoinColumns = @JoinColumn(name = "friend_id"))
     private Set<User> friends = new HashSet<User>();
@@ -66,7 +66,7 @@ public class User {
     @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
-    @JoinTable(name = "friendship",
+    @JoinTable(name = "connection",
 	       joinColumns = @JoinColumn(name = "friend_id"),
 	       inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> friendOf = new HashSet<User>();
@@ -84,6 +84,13 @@ public class User {
 	       cascade = { CascadeType.MERGE, CascadeType.PERSIST },
 	       fetch = FetchType.EAGER)
     private Set<BuddyPayment> sentBuddyPayments = new HashSet<BuddyPayment>();
+
+    @JsonBackReference
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user",
+	       cascade = { CascadeType.MERGE, CascadeType.PERSIST },
+	       fetch = FetchType.EAGER)
+    private Set<BankTransfert> bankTransferts = new HashSet<BankTransfert>();
 
     @EqualsAndHashCode.Exclude
     @OneToOne(targetEntity = BankAccount.class,

@@ -29,10 +29,11 @@ public class BuddyPaymentService {
 		User sender = this.getUserEntityByUsername(dto.getSenderUsername());
 		User receiver= this.getUserEntityByUsername(dto.getReceiverUsername());
 		float amount = dto.getAmount();
+		String description = dto.getDescription();
 		if (sender.getBalance() > amount) {
 			sender.setBalance((sender.getBalance()) - amount);
 			receiver.setBalance((receiver.getBalance()) + amount);
-			BuddyPayment newPayment = new BuddyPayment(sender, receiver, amount);
+			BuddyPayment newPayment = new BuddyPayment(sender, receiver, amount, description);
 			BuddyPayment result = buddyPaymentRepository.save(newPayment);
 			return new BuddyPaymentDto(result);
 		} else {

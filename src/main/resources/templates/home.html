@@ -9,13 +9,16 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-   <nav>
-      <a href="/home">home</a>
-      <a href="/transfert">transfert</a>
-      <a href="/profile">profile</a>
-      <a sec:authorize="isAnonymous()" href="/login">login</a>
-      <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
-   </nav>
+   <header>
+      <a class="home-link" href="/home">PayMyBuddy</a>
+      <nav>
+         <a class="link" href="/home">home</a>
+         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
+         <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
+      </nav>
+   </header>
    <div sec:authorize="isAnonymous()">
       <h2>Pay My Buddy, simple solution to send money to your buddies.</h2>
       <div class="login">
@@ -27,18 +30,22 @@
          <a href="/createAccount">create account</a>
       </div>
       <div>
-         <p>Connect or create an account with google:
-            <a href="/oauth2/authorization/google">
-               <img alt="Google button to connect" width="25px" th:src="@{images/googlelogo.jpeg}"
-                  src="../../static/images/googlelogo.jpeg}">
-            </a>
-         </p>         
+         <p>Connect or create an account with google:</p>
+         <a href="/oauth2/authorization/google">
+            <img alt="Google button to connect" width="25px" th:src="@{images/googlelogo.jpeg}"
+               src="../../static/images/googlelogo.jpeg}">
+         </a>
+         <p>or Github:</p>
+         <a href="/oauth2/authorization/github">
+            <img alt="GitHub button to connect" width="25px" th:src="@{images/githublogo.png}"
+               src="../../static/images/githublogo.png}">
+         </a>
       </div>
    </div>
    <div sec:authorize="isAuthenticated()">
       <p>
-         Welcome 
-         <span th:text="${dto.username}" ></span>
+         Welcome
+         <span th:text="${dto.username}"></span>
          !
       </p>
    </div>

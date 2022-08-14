@@ -11,13 +11,16 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="h-screen">
-   <nav>
-      <a href="/home">home</a>
-      <a href="/transfert">transfert</a>
-      <a href="/profile">profile</a>
-      <a sec:authorize="isAnonymous()" href="/login">login</a>
-      <a sec:authorize="isAuthenticated()" href="/logout">logout</a>
-   </nav>
+   <header>
+      <a class="home-link" href="/home">PayMyBuddy</a>
+      <nav>
+         <a class="link" href="/home">home</a>
+         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
+         <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
+      </nav>
+   </header>
    <div class="container mx-auto h-full flex justify-center items-center text-green-700 px-4">
       <div class="md:w-1/3 shadow-xl rounded-2xl border bg-green-100 w-full">
          <h1 class="text-center font-medium text-2xl text-white rounded-t-2xl bg-green-500 py-4">Sign
@@ -41,16 +44,22 @@
                   type="submit" value="Login">
             </div>
          </form>
-         <p>Connect with google:</p>
-         <a href="/oauth2/authorization/google">
-           
-            <img alt="Google button to connect" width="25px" th:src="@{images/googlelogo.jpeg}"
-               src="../../static/images/googlelogo.jpeg}">
-         </a>
+         <div>
+            <p>Connect with google:</p>
+            <a href="/oauth2/authorization/google">
+               <img alt="Google button to connect" width="25px" th:src="@{images/googlelogo.jpeg}"
+                  src="../../static/images/googlelogo.jpeg}">
+            </a>
+            <p>Connect with github:</p>
+            <a href="/oauth2/authorization/github">
+               <img alt="GitHub button to connect" width="25px" th:src="@{images/googlelogo.jpeg}"
+                  src="../../static/images/githublogo.png}">
+            </a>
+         </div>
          <div class="text-center pb-4">
             <p class="text-grey-dark text-sm">
                Don't have an account?
-               <a href="#" class="no-underline text-green-500 font-bold">Create an Account</a>
+               <a href="/createAccount" class="no-underline text-green-500 font-bold">Create an Account</a>
                .
             </p>
          </div>
