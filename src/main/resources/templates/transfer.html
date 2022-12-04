@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,49 +8,52 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-   <header>
-      <a class="home-link" href="/home">PayMyBuddy</a>
-      <nav>
-         <a class="link" href="/home">home</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
-         <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
-         <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
-      </nav>
-   </header>
-   <a href="/addConnection">Add Connection</a>
-   <div class="payment">
-      <h1>Pay a buddy:</h1>
-      <form action="#" th:action="@{/transfer/payment}" method="post">
-         <select name="buddy">
-            <option value="select a buddy"></option>
-            <option th:each="b : ${userDto.myBuddies}" th:value="${b}" th:text="${b}"></option>
-         </select>
-         <p>Amount:</p>
-         <input type="number" th:value="amount" name="amount" />
-         <p>Description:</p>
-         <input type="text" th:value="description" name="description" />
-         <input type="submit" />
-      </form>
-   </div>
-   <div>
-      <table class="buddy-payment-table">
-         <thead>
-            <tr>
-               <th>My Buddy payments</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr th:each="payment: ${userDto.allBuddyPaymentDtoList}" th:object="${payment}"
-               th:if="${payment.senderUsername} == ${userDto.username}">
-               <td th:text="${payment.receiverUsername}"></td>
-               <td th:text="${payment.description}"></td>
-               <td th:text="${payment.amount}"></td>
-            </tr>
-         </tbody>
-      </table>
-   </div>
-   <!-- 
+	<header>
+		<a class="home-link" href="/home">Pay My Buddy</a>
+		<nav>
+			<a class="link" href="/home">home</a> <a class="link" sec:authorize="isAuthenticated()" href="/transfer">transfer</a>
+			<a class="link" sec:authorize="isAuthenticated()" href="/profile">profile</a> <a class="link"
+				sec:authorize="isAnonymous()" href="/login">login</a> <a class="link" sec:authorize="isAuthenticated()"
+				href="/logout">logout</a>
+		</nav>
+	</header>
+	<div class="transfer">
+		<div class="transfer-top">
+			<p>Send Money</p>
+			<form action="#" th:action="@{/addConnection}" method="get">
+				<input type="submit" value="Add Connection" />
+			</form>
+		</div>
+		<form class="transfer-middle" action="#" th:action="@{/transfer/payment}" method="post">
+			<select name="buddy" th:object=${buddy}>
+				<option value="" disabled selected>Select a buddy</option>
+				<option th:each="b : ${userDto.myBuddies}" th:value="${b}" th:text="${b}"></option>
+			</select> <input class="amount" type="number" th:object=${description} name="amount" placeholder="0€" /> <input
+				class="description" type="text" th:object=${description} name="description" placeholder="description" /> <input
+				class="pay-button" type="submit" value="Pay" />
+		</form>
+		<div class="transfer-bottom">
+			<p>My Transactions</p>
+			<table class="buddy-payment-table">
+				<thead>
+					<tr>
+						<th>Buddy</th>
+						<th>Description</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="payment: ${userDto.allBuddyPaymentDtoList}" th:object="${payment}"
+						th:if="${payment.senderUsername} == ${userDto.username}">
+						<td th:text="${payment.receiverUsername}"></td>
+						<td th:text="${payment.description}"></td>
+						<td th:text="${payment.amount}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 
   -->
 </body>
 </html>

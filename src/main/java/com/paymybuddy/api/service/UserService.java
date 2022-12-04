@@ -62,10 +62,10 @@ public class UserService {
 	}
 	
 
-	public List<String> getBuddyList(String username) {
-		UserDto userDto = getUserDtoByUsername(username);
-		return userDto.getMyBuddies();
-	}
+//	public List<String> getBuddyList(String username) {
+//		UserDto userDto = getUserDtoByUsername(username);
+//		return userDto.getMyBuddies();
+//	}
 
 	public ConnectionDto addNewBuddy(String username, String friend) {
 		User user = this.getUserEntityByUsername(username);
