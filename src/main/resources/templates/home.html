@@ -12,42 +12,44 @@
    <header>
       <a class="home-link" href="/home">Pay My Buddy</a>
       <nav>
-         <a class="link" href="/home">home</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
-         <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
-         <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
+         <a class="link" href="/home">Home</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/transfer">Transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/profile">Profile</a>
+         <a class="link" sec:authorize="isAnonymous()" href="/login">Login</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/logout">Logout</a>
       </nav>
    </header>
-   <div sec:authorize="isAnonymous()">
+   <div class="main" id="home-main" sec:authorize="isAnonymous()">
       <h2>Pay My Buddy, simple solution to send money to your buddies.</h2>
-      <div class="login">
-         login
-         <a href="/login">connexion</a>
+      <div class="main-middle">
+         Login your account here:
+         <a class="log-a" href="/login">Sign in</a>
       </div>
-      <div class="create-account">
-         create
-         <a href="/createAccount">create account</a>
+      <div class="main-middle">
+         Create an account:
+         <a class="log-a" href="/createAccount">Sign up</a>
       </div>
-      <div>
-         <p>Connect or create an account with google:</p>
+      <div class="main-middle">
+         <p>Connect with Google:</p>
          <a href="/oauth2/authorization/google">
-            <img alt="Google button to connect" width="25px" th:src="@{images/googlelogo.jpeg}"
+            <img alt="Google button to connect" width="40px" th:src="@{images/googlelogo.jpeg}"
                src="../../static/images/googlelogo.jpeg}">
          </a>
-         <p>or Github:</p>
+      </div>
+      <div class="main-middle">
+         <p>Connect with Github:</p>
          <a href="/oauth2/authorization/github">
-            <img alt="GitHub button to connect" width="25px" th:src="@{images/githublogo.png}"
+            <img alt="GitHub button to connect" width="40px" th:src="@{images/githublogo.png}"
                src="../../static/images/githublogo.png}">
          </a>
       </div>
    </div>
-   <div sec:authorize="isAuthenticated()">
-      <p>
+   <div class="main-middle" sec:authorize="isAuthenticated()">
+      <h3>
          Welcome
          <span th:text="${dto.username}"></span>
          !
-      </p>
+      </h3>
    </div>
 </body>
 </html>

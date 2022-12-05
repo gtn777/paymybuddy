@@ -1,37 +1,41 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="stylesheet" href="style.css">
 <title>Login : Demo</title>
 </head>
 <body>
-
-	<div class="login">
-	
-		<form class="login-form" th:action="@{/login}" method="post">
-			<a class="home-link" href="/home">Pay My Buddy</a> <input id="username" type="text" name="username"
-				autocomplete="off" class="" placeholder="Email"> <input id="password" type="password" name="password"
-				autocomplete="off" class="" placeholder="Password"> <input class="" type="submit" value="Login">
-		</form>
-		
-		<div class="social" >
-			<a href="/oauth2/authorization/google"> <img alt="Google button to connect" width="40px"
-				th:src="@{images/googlelogo.jpeg}" src="../../static/images/googlelogo.jpeg}">
-			</a> <a href="/oauth2/authorization/github"> <img alt="GitHub button to connect" width="40px"
-				th:src="@{images/githublogo.png}" src="../../static/images/githublogo.png}">
-			</a>
-		</div>
-
-		<div class="">
-			<p class="">
-				Don't have an account? <a href="/createAccount" class="">Create an Account</a>
-			</p>
-		</div>
-	</div>
+   <div class="login">
+      <form class="login-form" th:action="@{/login}" method="post">
+         <a class="home-link button" href="/home">Pay My Buddy</a>
+         <input id="username" type="text" name="username" autocomplete="off" class=""
+            placeholder="Email">
+         <input id="password" type="password" name="password" autocomplete="off" class=""
+            placeholder="Password">
+         <input class="login-button button " type="submit" value="Login">
+      </form>
+      <div class="login-bottom ">
+         <p>Connect with Google or Github</p>
+         <a href="/oauth2/authorization/google">
+            <img alt="Google button to connect" width="40px" th:src="@{images/googlelogo.jpeg}"
+               src="../../static/images/googlelogo.jpeg}">
+         </a>
+         <a href="/oauth2/authorization/github">
+            <img alt="GitHub button to connect" width="40px" th:src="@{images/githublogo.png}"
+               src="../../static/images/githublogo.png}">
+         </a>
+         </div>
+         <div class="login-bottom ">
+            <p class="">
+               Don't have an account?
+               <a href="/createAccount"  class="button signup-button" >Create an Account</a>
+            </p>
+      </div>
+   </div>
 </body>
 </html>

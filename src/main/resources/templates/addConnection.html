@@ -13,35 +13,36 @@
       <a class="home-link" href="/home">Pay My Buddy</a>
       <nav>
          <a class="link" href="/home">home</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/transfer">transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/profile">profile</a>
          <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
          <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
       </nav>
    </header>
-   <div>
-      <h1>Add a new connection with a buddy:</h1>
-      <form action="#" th:action="@{/addConnection}" method="post">
+   <div class="main">
+      <h4>Add a new connection with a buddy:</h4>
+      <form class="main-middle" action="#" th:action="@{/addConnection}" method="post">
          <p>
             Enter the email of your buddy:
             <input type="text" th:value="newBuddy" name="newBuddy" />
             <input type="submit" />
          </p>
       </form>
-   </div>
-   <div>
-      <table class="my-buddies">
-         <thead>
-            <tr>
-               <th>My Buddies:</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr th:each="username: ${userDto.myBuddies}" th:object="${user}">
-               <td th:text="${username}"></td>
-            </tr>
-         </tbody>
-      </table>
+      <div class="main-bottom">
+         <h4>My current buddy list:</h4>
+         <table class="buddy-payment-table my-buddies">
+            <thead>
+               <tr>
+                  <th>My Buddies:</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr th:each="username: ${userDto.myBuddies}" th:object="${user}">
+                  <td th:text="${username}"></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
    </div>
    <!-- 
   -->

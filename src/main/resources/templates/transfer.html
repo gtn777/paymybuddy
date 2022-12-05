@@ -17,14 +17,14 @@
 				href="/logout">logout</a>
 		</nav>
 	</header>
-	<div class="transfer">
-		<div class="transfer-top">
+	<div class="main">
+		<div class="main-top">
 			<p>Send Money</p>
 			<form action="#" th:action="@{/addConnection}" method="get">
 				<input type="submit" value="Add Connection" />
 			</form>
 		</div>
-		<form class="transfer-middle" action="#" th:action="@{/transfer/payment}" method="post">
+		<form class="main-middle" action="#" th:action="@{/transfer/payment}" method="post">
 			<select name="buddy" th:object=${buddy}>
 				<option value="" disabled selected>Select a buddy</option>
 				<option th:each="b : ${userDto.myBuddies}" th:value="${b}" th:text="${b}"></option>
@@ -32,7 +32,7 @@
 				class="description" type="text" th:object=${description} name="description" placeholder="description" /> <input
 				class="pay-button" type="submit" value="Pay" />
 		</form>
-		<div class="transfer-bottom">
+		<div class="main-bottom">
 			<p>My Transactions</p>
 			<table class="buddy-payment-table">
 				<thead>

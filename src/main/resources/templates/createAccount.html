@@ -13,27 +13,22 @@
       <a class="home-link" href="/home">Pay My Buddy</a>
       <nav>
          <a class="link" href="/home">home</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/transfer">transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/profile">profile</a>
          <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
          <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
       </nav>
    </header>
-   <h2>Pay My Buddy,simple solution to send money to your buddies.</h2>
-   <div class="create-account">
+   <div class="main">
+      <h2>Pay My Buddy,simple solution to send money to your buddies.</h2>
       <form action="#" th:action="@{/createAccount}" th:object="${logindto}" method="post">
-         <p>
-            Enter your email:
-            <input type="text" th:field="*{username}" />
-         </p>
-         <p>
-            Enter password::
-            <input type="text" th:field="*{password}" />
-         </p>
-         <p>
-            <input type="submit" value="Submit" />
-            <input type="reset" value="Reset" />
-         </p>
+         Enter your email:
+         <input id="username" type="text" name="username" autocomplete="off" class=""
+            placeholder="Email">
+         Enter password:
+         <input id="password" type="password" name="password" autocomplete="off" class=""
+            placeholder="Password">
+         <input type="submit" value="Submit" />
       </form>
    </div>
 </body>

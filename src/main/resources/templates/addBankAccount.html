@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,26 +9,31 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-	<header>
-		<a class="home-link" href="/home">Pay My Buddy</a>
-		<nav>
-			<a class="link" href="/home">home</a> <a class="link"
-				sec:authorize="isAuthenticated()" href="/transfer">transfer</a> <a
-				class="link" sec:authorize="isAuthenticated()" href="/profile">profile</a>
-			<a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
-			<a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
-		</nav>
-	</header>
-	<div>
-		<h3>Registry your bank account:</h3>
-		<form action="#" th:action="@{/profile/addBankAccount}" method="post">
-			<label for="bankName">Bank name:</label> <input
-				type="text" th:value="bankName" name="bankName" /> <label
-				for="accountNumber">Account number:</label> <input
-				type="number" th:value="accountNumber" name="accountNumber" /> <input
-				type="submit" />
-		</form>
-	</div>
-	<a href="/profile">Back to profile page</a>
+   <header>
+      <a class="home-link" href="/home">Pay My Buddy</a>
+      <nav>
+         <a class="link" href="/home">home</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/transfer">transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/profile">profile</a>
+         <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
+      </nav>
+   </header>
+   <div class="main">
+      <h3>Registry your bank account:</h3>
+      <form class=" add-account" action="#" th:action="@{/profile/addBankAccount}" method="post">
+         <div class="bank-form" >
+            <label for="bankName">Your bank name:</label>
+            <input type="text" name="bankName" placeholder="enter bank name" />
+         </div>
+         <div class="bank-form">
+            <label for="accountNumber">Account number:</label>
+            <input type="number" th:value="accountNumber" name="accountNumber"
+               placeholder="enter account number" />
+         </div>
+         <input type="submit" />
+      </form>
+   </div>
+   <a href="/profile">Back to profile page</a>
 </body>
 </html>
