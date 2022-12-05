@@ -1,62 +1,365 @@
 html {
-	padding: 0;
-	marging: 0;
 	display: flex;
-	flex-direction: row;
+	flex-flow: row;
 	justify-content: center;
-	background-color: gray;
-	display: flex;
+	padding: 0;
+	margin: 0;
+	background: black;
+	border: none;
 }
 
 body {
-	padding: 10px;
-	marging: 0;
-	width: 100vh;
-	min-width: 1000px;
-	height: 100vh;
-	min-height: 800px;
-	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	min-height: 700px;
+	padding: 8px;
+	margin: 0;
+	background: #c0bfbc;
+	background: white;
+	border: 2px solid black;
+	min-height: 100vh;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.login {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 60%;
+	min-height: 60%;
+	margin-top: 50px;
+	padding: 20px;
+	height: 800px;
+	background: white;
+	border: 2px solid gray;
+	border-radius: 4px;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	width: 50%;
+	margin-top: 50px;
+	padding: 50px;
+	background: white;
+	border: 2px solid gray;
+	border-radius: 4px;
 }
 
 header {
-	padding: 10px;
+	width: 100%;
+	height: 90px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	padding: 0px;
+	margin: 5px;
+	background: #eeeeee;
+}
+
+a.home-link {
+	height: 100%;
+	width: 280px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #61b95a;
+	border: 10px solid #61b95a;
+	border-radius: 10px;
+	font-size: 1.4rem;
+	color: white;
+}
+
+a.home-link:visited {
+	color: white;
 }
 
 nav {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: flex-end;
 	align-items: center;
-	background-color: white;
-	width: 600px;
-	background-color: white;
+	height: 100%;
+	width: 50%;
+	padding: 0;
+	background: #eeeeee;
+	margin: 0;
+}
+
+nav * {
+	background: white;
+}
+
+a.link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 180px;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: none;
+	font-size: 1.3rem;
+	background: #eeeeee;
+}
+
+a.link:hover {
+	color: white;
+	background: #61b95a;
+}
+
+a.link:visited {
+	color: black;
 }
 
 a {
 	text-decoration: none;
 }
-a.home-link{
-	padding: 10px;
+
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 75%;
+	margin-top: 50px;
+	min-height: 80%;
+	background: white;
+	border: none;
+	min-height: 80%;
+}
+
+.main-top {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin-top: 50px;
+	width: 100%;
+	background: white;
+	border: none;
+	font-size: 1.3rem;
+}
+
+.main-middle {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 150px;
+	background: #eeeeee;
+	border: none;
+}
+
+.main-top p {
+	font-size: 1.3rem;
+	margin: 10px;
+}
+
+.main-top input {
+	font-size: 1.3rem;
+	background: #0174d8;
+	border: 5px solid #0174d8;
+	border-radius: 5px;
 	color: white;
-	background-color: green;
-	border: 2px solid green;
-	border-radius: 3px;
+	padding: 15px;
+	margin: 0;
+}
+
+.main-bottom {
+	width: 100%;
+	margin-top: 50px;
+	background: white;
+	border: none;
+}
+
+.main-bottom p {
+	margin: 10px;
+	font-size: 1.3rem;
+}
+
+.amount {
+	width: 110px;
+}
+
+.pay-button {
+	width: 200px;
+	margin: auto;
+	margin-right: 15px;
+	padding: 10px;
+	font-size: 1.4rem;
+	background: green;
+	border: 5px solid #61b95a;
+	border-radius: 5px;
+	color: white;
+	background: #61b95a;
+}
+
+.block {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.buddy-payment-table {
+	background: #eeeeee;
+	margin: auto;
+	margin-top: 0px;
+	width: 100%;
+}
+
+.my-buddies {
+	width: 70%;
+}
+
+div {
+	border: 4px solid green;
+	background: blue;
+}
+
+input, select, label {
+	margin: 15px;
+	padding: 20px;
+	background: white;
+	font-size: 1rem;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+
+
+th, td, table {
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+.buddy-payment-table * {
+	padding: 10px;
+	margin: 15px;
+	text-align: center;
+}
+
+#home-main {
+	min-height: 100px;
+}
+
+#home-main .main-middle {
+	height: 100px;
+}
+
+.login .login-button {
+	width: 200px;
+	margin: auto;
+	padding: 10px;
+	font-size: 1.4rem;
+	background: green;
+	border: 5px solid #61b95a;
+	border-radius: 5px;
+	color: white;
+	background: #61b95a;
+}
+.login{
+	height:auto;
+	margin:10px;
+}
+.log-a {
+	color: white;
+	background: green;
+	border: 2px solid black;
+	border-radius: 4px;
+	padding: 5px;
+	margin: 10px;
+}
+.login-bottom {	
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100px;
+	background: #eeeeee;
+	border: none;
+}
+.account-button{
+		display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 60px;
+	background: #eeeeee;
+	border: none;
 	
 }
 
-a.link:link {
-	color: black;
-} /* Liens non visités */
-a.link:visited {
-	color: black;
-} /* Liens visités */
-a.link:hover {
-	background: gray;
-} /* Liens survolés */
-a.link:active {
-	color: blue;
-} /* Liens actifs */
+.add-account {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 300px;
+	background: #eeeeee;
+	border: none;
+}
+
+.bank-form {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	width: 80%;
+	height: 150px;
+	background: #eeeeee;
+	border: none;
+}
+
+.bank-form label {
+	border: none;
+	background: none;
+}
+
+.profile-transfer {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	min-height: 150px;
+	background: #eeeeee;
+	border: none;
+}
+
+.button:hover {
+	cursor: pointer;
+	color: white;
+	background: #61b95a;
+}
+
+
+img {
+	margin: 10px;
+}
+
+.fl-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.fl-col {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}

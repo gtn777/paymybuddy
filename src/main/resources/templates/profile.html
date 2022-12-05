@@ -10,57 +10,40 @@
 </head>
 <body>
    <header>
-      <a class="home-link" href="/home">PayMyBuddy</a>
+      <a class="home-link" href="/home">Pay My Buddy</a>
       <nav>
          <a class="link" href="/home">home</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/transfer">transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/profile">profile</a>
          <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
          <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
       </nav>
    </header>
-   <div class="">
-      <p th:text="'Hello '+${dto.username} + ' !'"></p>
-      <p th:text="'Your account balance: '+${dto.balance}">
-      <p>
-         <!-- 
-       <div sec:authorize="isAuthenticated()">
-         Authenticated as
-         <span sec:authentication="name"></span>
+   <div class="main">
+   <p th:text="'Hello '+${dto.username} + ' !'"></p>
+   <p th:text="'Your account balance: '+${dto.balance}">
+      <div class="main-middle" th:if="${dto.bankAccountDto} == null">
+         Registry your bank account here:
+         <a  class="button" href="/profile/addBankAccount">Go</a>
       </div>
-  -->
-      <div th:if="${dto.bankAccountDto} == null">
-         Registry your bank account to send or receive money from your bank here:
-         <a href="/profile/addBankAccount">Click</a>
-      </div>
-      <div th:if="${dto.bankAccountDto } != null">
+      <div class="profile-transfer" th:if="${dto.bankAccountDto } != null">
          <p>Add money from your bank account:</p>
          <form action="#" th:action="@{/profile/fromBank}" method="post">
-            <p>
-               Enter amount to request from your
-               <span th:text="${dto.bankAccountDto.bankName}"></span>
-               account with number
-               <span th:text="${dto.bankAccountDto.accountNumber}"></span>
-               :
-            </p>
-            <input type="number" th:value="amount" name="amount" />
-            <input type="submit" />
+            <input type="number" placeholder="enter amount" name="amount" />
+            <input  class="button" type="submit" value="Receive money" />
          </form>
+      </div>
+      <div class="profile-transfer" th:if="${dto.bankAccountDto } != null">
          <p>Transfer money to your bank account:</p>
          <form action="#" th:action="@{/profile/toBank}" method="post">
-            <p>
-               Enter amount to transfer to your
-               <span th:text="${dto.bankAccountDto.bankName}"></span>
-               account with number
-               <span th:text="${dto.bankAccountDto.accountNumber}"></span>
-               :
-            </p>
-            <input type="number" th:value="amount" name="amount" />
-            <input type="submit" />
+            <input type="number" placeholder="enter amount" name="amount" />
+            <input class="button" type="submit" value="Send money" />
          </form>
-         <form action="#" th:action="@{/profile/deleteBankAccount}" method="post">
-            <p>You can delete your account bank here:</p>
-            <input type="submit" />
+      </div>
+      <div class="profile-transfer" th:if="${dto.bankAccountDto } != null">
+         <p>You can delete your account bank here:</p>
+         <form class="" action="#" th:action="@{/profile/deleteBankAccount}" method="post">
+            <input class="button"  type="submit" value="Submit"  />
          </form>
       </div>
    </div>

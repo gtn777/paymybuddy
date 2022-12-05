@@ -10,19 +10,20 @@
 </head>
 <body>
    <header>
-      <a class="home-link" href="/home">PayMyBuddy</a>
+      <a class="home-link" href="/home">Pay My Buddy</a>
       <nav>
          <a class="link" href="/home">home</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/transfer">transfer</a>
-         <a class="link" sec:authorize="isAuthenticated()"  href="/profile">profile</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/transfer">transfer</a>
+         <a class="link" sec:authorize="isAuthenticated()" href="/profile">profile</a>
          <a class="link" sec:authorize="isAnonymous()" href="/login">login</a>
          <a class="link" sec:authorize="isAuthenticated()" href="/logout">logout</a>
       </nav>
    </header>
-   <div sec:authorize="isAnonymous()">
-      <h2>Try to connect with your email and password to finalize the creation of your account here: </h2>
-      <div class="login">
-         <a href="/login">Login</a>
+   <div class="main" sec:authorize="isAnonymous()">
+      <div class="main-middle">
+         <h4>Try to connect with your email and password to finalize the creation of your
+            account:</h4>
+         <a class="pay-button" href="/login">Login</a>
       </div>
    </div>
 </body>
