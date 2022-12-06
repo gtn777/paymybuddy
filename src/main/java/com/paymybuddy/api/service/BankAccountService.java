@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.paymybuddy.api.entity.BankAccount;
+import com.paymybuddy.api.entity.BankTransfer;
 import com.paymybuddy.api.entity.User;
 import com.paymybuddy.api.exception.NotEnoughMoneyException;
 import com.paymybuddy.api.exception.UnknownUserException;
+import com.paymybuddy.api.repository.BankTransferRepository;
 import com.paymybuddy.api.repository.UserRepository;
 
 
@@ -21,6 +23,9 @@ public class BankAccountService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BankTransferRepository bankTransferRepository;
 
     public boolean addBankAccount(String username, String bankName, long accountNumber) {
 	User user = this.getUserEntityByUsername(username);
@@ -35,21 +40,25 @@ public class BankAccountService {
 	return true;
     }
 
-    public boolean sendMoneyToBank(String username, float amount) {
+    public boolean sendMoneyToBank(String username, int amount) {
 	User user = this.getUserEntityByUsername(username);
 	float currentBalance = user.getBalance();
 	if (currentBalance >= amount) {
 	    user.setBalance((user.getBalance()) - amount);
+	    BankTransfer transfer = new BankTransfer(user, user.getBankAccount(), true, amount);
+	    bankTransferRepository.save(transfer);
 	    return true;
 	} else {
 	    throw new NotEnoughMoneyException();
 	}
     }
 
-    public boolean receiveMoneyFromBank(String username, float amount) {
+    public boolean receiveMoneyFromBank(String username, int amount) {
 	User user = this.getUserEntityByUsername(username);
 	float currentBalance = user.getBalance();
 	user.setBalance(currentBalance + amount);
+	BankTransfer transfer = new BankTransfer(user, user.getBankAccount(), false, amount);
+	bankTransferRepository.save(transfer);
 	return true;
     }
 

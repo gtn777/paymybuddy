@@ -20,12 +20,23 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
-@Table(name = "bank_transfert")
-public class BankTransfert {
+@Table(name = "bank_transfer")
+public class BankTransfer {
+
+    
+    public BankTransfer() { super(); }
+
+    public BankTransfer(User user, BankAccount bankAccount, Boolean isUserSender, int amount) {
+	super();
+	this.user = user;
+	this.bankAccount = bankAccount;
+	this.isUserSender = isUserSender;
+	this.amount = amount;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bank_transfert_id", nullable = false, unique = true)
+    @Column(name = "bank_transfer_id", nullable = false, unique = true)
     private int id;
 
     @ManyToOne(targetEntity = User.class,

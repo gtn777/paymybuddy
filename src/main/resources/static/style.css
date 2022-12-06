@@ -344,7 +344,9 @@ th, td, table {
 	color: white;
 	background: #61b95a;
 }
-
+.button2:hover {
+	cursor: pointer;
+}
 
 img {
 	margin: 10px;

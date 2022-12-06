@@ -90,7 +90,7 @@ public class User {
     @OneToMany(mappedBy = "user",
 	       cascade = { CascadeType.MERGE, CascadeType.PERSIST },
 	       fetch = FetchType.EAGER)
-    private Set<BankTransfert> bankTransferts = new HashSet<BankTransfert>();
+    private Set<BankTransfer> bankTransferts = new HashSet<BankTransfer>();
 
     @EqualsAndHashCode.Exclude
     @OneToOne(targetEntity = BankAccount.class,

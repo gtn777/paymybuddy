@@ -1,7 +1,6 @@
 drop TABLE if exists connection;
 drop TABLE if exists buddy_payment;
-drop TABLE if exists bank_transfert;
-drop TABLE if exists bank_transfert;
+drop TABLE if exists bank_transfer;
 drop TABLE if exists user;
 drop TABLE if exists bank_account;
 CREATE TABLE bank_account
@@ -25,14 +24,14 @@ CREATE TABLE user
    FOREIGN KEY (bank_account_id) REFERENCES bank_account (bank_account_id),
    CONSTRAINT UNIQUE_username UNIQUE (username)
 );
-CREATE TABLE bank_transfert
+CREATE TABLE bank_transfer
 (
-   bank_transfert_id int (11) NOT NULL AUTO_INCREMENT,
+   bank_transfer_id int (11) NOT NULL AUTO_INCREMENT,
    bank_account_id int (11) NOT NULL,
    user_id int (11) NOT NULL,
    is_user_sender boolean NOT NULL,
    amount int (11) NOT NULL,
-   PRIMARY KEY (`bank_transfert_id`),
+   PRIMARY KEY (`bank_transfer_id`),
    FOREIGN KEY (user_id) REFERENCES user (user_id),
    FOREIGN KEY (bank_account_id) REFERENCES bank_account (bank_account_id)
 );

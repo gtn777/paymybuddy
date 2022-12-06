@@ -30,12 +30,12 @@ public class UserController extends ControllerClass {
 	private UserService userService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public Object getIndexDefaultPage(RedirectAttributes r) throws Throwable {
+	public Object getIndexDefaultPage(RedirectAttributes r)  {
 		return "redirect:/home";
 	}
 
 	@GetMapping(value = "/home")
-	public Object getHomePage(Authentication auth) throws Throwable {
+	public Object getHomePage(Authentication auth) {
 		if (auth != null) {
 			if (userService.isKnownUser(getAuthenticatedUsername(auth))) {
 				ModelAndView mav = new ModelAndView("home");
@@ -62,7 +62,7 @@ public class UserController extends ControllerClass {
 	}
 
 	@PostMapping(path = "/createAccount")
-	public Object createUserPasswordAccount(@ModelAttribute(value = "logindto") LoginDto dto) throws Throwable {
+	public Object createUserPasswordAccount(@ModelAttribute(value = "logindto") LoginDto dto) {
 		userService.createPasswordAccount(dto);
 		return "redirect:/newUser";
 	}
@@ -75,7 +75,7 @@ public class UserController extends ControllerClass {
 	}
 
 	@GetMapping(value = "/profile")
-	public Object getProfilePage(Authentication auth) throws Throwable {
+	public Object getProfilePage(Authentication auth)  {
 		ModelAndView mav = new ModelAndView("profile");
 		UserDto dto = userService.getUserDtoByUsername(getAuthenticatedUsername(auth));
 		mav.addObject("dto", dto);

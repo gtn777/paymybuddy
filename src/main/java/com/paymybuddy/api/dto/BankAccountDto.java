@@ -18,12 +18,11 @@ public class BankAccountDto implements Serializable {
 
 	public BankAccountDto(BankAccount ba) {
 		this.bankName = ba.getBankName();
-		String number = "" + ba.getAccountNumber();
-		this.accountNumber = Character.toString(number.charAt(0)) + Character.toString(number.charAt(1))
-				+ Character.toString(number.charAt(2)) + "...";
+		this.accountNumber = ba.getAccountNumber();
+
 	}
 
 	private String bankName;
-	private String accountNumber;
+	private long accountNumber;
 
 }

@@ -31,6 +31,7 @@ import com.paymybuddy.api.entity.User;
 import com.paymybuddy.api.exception.UnknownUserException;
 import com.paymybuddy.api.repository.UserRepository;
 import com.paymybuddy.api.service.UserService;
+import com.paymybuddy.api.util.GitHubUserUtil;
 
 
 @WebMvcTest(controllers = UserController.class)
@@ -48,10 +49,13 @@ public class UserControllerTest {
 
     @MockBean
     UserRepository userRepository;
+    
+    @MockBean
+    GitHubUserUtil gitHubUserUtil;
 
-    private final String username = "bob@mail.com";
+    private final String username = "junit@mail.com";
 
-    private final String password = "passbob";
+    private final String password = "junit";
 
     private User user;
 
@@ -89,53 +93,27 @@ public class UserControllerTest {
 //	mockMvc.perform(get("/user")).andExpect(status().isBadRequest());
 //	mockMvc.perform(get("/user?")).andExpect(status().isBadRequest());
 //    }
-//
-//    @WithMockUser(username)
-//    @Test
-//    public void getUser_withUnknwonUserException_thenIsNotFoundStatus() throws Exception {
-//	when(userService.getUserDtoByUsername(username))
-//	.thenThrow(new UnknownUserException(username));
-//	mockMvc.perform(get("/user?username=bob@mail.com")).andExpect(status().isNotFound());
-//    }
-//
-//    @WithMockUser(username)
-//    @Test
-//    public void postNewUser_httpStatusIsCreated_thenReturnUserDto() throws Exception {
-//	when(userService.createPasswordAccount(loginIdDto)).thenReturn(userDto);
-//	mockMvc
-//	.perform(post("/user").contentType(MediaType.APPLICATION_JSON)
-//	.content(new ObjectMapper().writeValueAsString(loginIdDto)))
-//	.andExpect(status().isCreated())
-//	.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//	.andExpect(jsonPath("$.username").value(username));
-//    }
-//
-//    @WithMockUser(username)
-//    @Test
-//    public void postNewUser_withBodyFaultyBadEmail_thenHttpStatusIsBadRequest() throws Exception {
-//	loginIdDto.setUsername("a@a");
-//	mockMvc
-//	.perform(post("/user").contentType(MediaType.APPLICATION_JSON)
-//	.content(new ObjectMapper().writeValueAsString(loginIdDto)))
-//	.andExpect(status().isBadRequest());
-//    }
-//
-//    @WithMockUser(username)
-//    @Test
-//    public void postNewUser_withBodyFaultyPassword_thenHttpStatusIsBadRequest() throws Exception {
-//	loginIdDto.setPassword("ae");
-//	mockMvc
-//	.perform(post("/user").contentType(MediaType.APPLICATION_JSON)
-//	.content(new ObjectMapper().writeValueAsString(loginIdDto)))
-//	.andExpect(status().isBadRequest());
-//    }
-//
-//    @WithMockUser(username)
-//    @Test
-//    public void addNewFriend_thenStatusIsCreated() throws Exception {
-//	mockMvc.perform(post("/user/buddy?username=bob@mail.com&friend=franck@mail.com"))
-//	.andExpect(status().isCreated());
-//    }
+////
+////    @WithMockUser(username)
+////    @Test
+////    public void getUser_withUnknwonUserException_thenIsNotFoundStatus() throws Exception {
+////	when(userService.getUserDtoByUsername(username))
+////	.thenThrow(new UnknownUserException(username));
+////	mockMvc.perform(get("/user?username=bob@mail.com")).andExpect(status().isNotFound());
+////    }
+////
+    @WithMockUser(username)
+    @Test
+    public void postNewUser_httpStatusIsRedirection302() throws Exception {
+	when(userService.createPasswordAccount(loginIdDto)).thenReturn(userDto);
+	mockMvc
+	.perform(post("/createAccount").contentType(MediaType.APPLICATION_JSON)
+	.content(new ObjectMapper().writeValueAsString(loginIdDto)))
+	.andExpect(status().is3xxRedirection());
+    }
+
+
+
 
 //    @WithMockUser(username)
 //    @Test

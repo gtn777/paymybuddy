@@ -21,7 +21,7 @@
 		<div class="main-top">
 			<p>Send Money</p>
 			<form action="#" th:action="@{/addConnection}" method="get">
-				<input type="submit" value="Add Connection" />
+				<input class="button2" type="submit" value="Add Connection" />
 			</form>
 		</div>
 		<form class="main-middle" action="#" th:action="@{/transfer/payment}" method="post">
@@ -30,7 +30,7 @@
 				<option th:each="b : ${userDto.myBuddies}" th:value="${b}" th:text="${b}"></option>
 			</select> <input class="amount" type="number" th:object=${description} name="amount" placeholder="0€" /> <input
 				class="description" type="text" th:object=${description} name="description" placeholder="description" /> <input
-				class="pay-button" type="submit" value="Pay" />
+				class="pay-button button2" type="submit" value="Pay" />
 		</form>
 		<div class="main-bottom">
 			<p>My Transactions</p>
